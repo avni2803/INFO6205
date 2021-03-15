@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int a, int b) {
+   int n = arr.size(), id = lower_bound(arr.begin(), arr.end(), b) - arr.begin();
+        int n1  = max(0, id - a), n2 = min(n - 1, id + a - 1);
+        while (n2 - n1 + 1 > a) {
+            if (b - arr[n1] > arr[n2] - b) {
+                n1++;
+            } else {
+                n2--;
+            }
+        }
+        return vector<int>(arr.begin() + n1, arr.begin() + n2 + 1);
+    }
+};     
+  
