@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums)
+    {
+        
+    // current  is an index of the element to sort
+    int p1 = 0, current = 0;
+   
+    int p2 = nums.size() - 1;
+
+    while (current <= p2) {
+        //checking the value of current
+      if (nums[current] == 0) {
+        //  swapping current and P1
+        swap(nums[current++], nums[p1++]);
+      }
+      else if (nums[current] == 2) {
+        swap(nums[current], nums[p2--]);
+      }
+      else current++;
+    }    
+    }
+};
