@@ -1,0 +1,28 @@
+
+        
+   class Solution {
+    public List<List<Integer>> threeSum(int[] num) {
+        Arrays.sort(num);
+        List<List<Integer>> output = new ArrayList<>();
+        for (int i = 0; i < num.length && num [i] <= 0; ++i)
+            if (i == 0 || num[i - 1] != num[i]) {
+                twoSumII(num, i, output);
+            }
+        return output;
+    }
+    void twoSumII(int[] num, int i, List<List<Integer>> output) {
+        int l1 = i + 1, h1 = num.length - 1;
+        while (l1 < h1) {
+            int sum = num[i] + num[l1] + num[h1];
+            if (sum < 0) {
+                ++l1;
+            } else if (sum > 0) {
+                --h1;
+            } else {
+                output.add(Arrays.asList(num[i], num[l1++], num[h1--]));
+                while (l1 < h1 && num[l1] == num[l1 - 1])
+                    ++l1;
+            }
+        }
+    }
+}
