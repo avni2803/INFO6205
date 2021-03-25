@@ -1,0 +1,41 @@
+class Solution {
+private:
+
+    vector<vector<int>> solution;
+
+public:
+    
+    int getHeight(TreeNode *root) {
+        
+        //CHECK if root is null
+        if (root==NULL) {
+            return -1;
+        }
+
+        // first calculate the height of the left and right children
+        int lHeight = getHeight(root->left);
+        int rHeight = getHeight(root->right);
+        
+        // calculate  the height of the current (parent) node
+        int currHeight = max(lHeight, rHeight) + 1;
+        
+       
+        if (this->solution.size() == currHeight) {
+            this->solution.push_back({});
+        }
+
+        
+        this->solution[currHeight].push_back(root->val);
+        
+        
+        return currHeight;
+    }
+    
+    vector<vector<int>> findLeaves(TreeNode* root) {
+        this->solution.clear();
+        
+        getHeight(root);
+        
+        return this->solution;
+    }
+};
