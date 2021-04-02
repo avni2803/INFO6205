@@ -1,0 +1,65 @@
+
+
+public class Solution {
+
+    public boolean printPerimeter(TreeNode root) {
+        return root.left == null && root.right == null;
+    }
+
+    public void addLeaves(List<Integer> res, TreeNode root) {
+        if (isLeaf(root)) {
+            res.add(root.val);
+        } else {
+            if (root.right != null) {
+                addLeaves(res, root.right);
+            }
+            if (root.left != null) {
+                addLeaves(res, root.left);
+            }
+        }
+    }
+
+    public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        if (!isLeaf(root)) {
+            res.add(root.val);
+        }
+        TreeNode t = root.right;
+        while (t != null) {
+            if (!isLeaf(t)) {
+                res.add(t.val);
+            }
+            if (t.right != null) {
+                t = t.right;
+            } else {
+                t = t.left;
+            }
+
+        }
+        addLeaves(res, root);
+        Stack<Integer> s = new Stack<>();
+        t = root.right;
+        while (t != null) {
+            if (!isLeaf(t)) {
+                s.push(t.val);
+            }
+            if (t.right != null) {
+                t = t.right;
+            } else {
+                t = t.left;
+            }
+        }
+        while (!s.empty()) {
+            res.add(s.pop());
+        }
+        return res;
+    }
+}
+
+
+time and space 
+o(n)
+o(n)

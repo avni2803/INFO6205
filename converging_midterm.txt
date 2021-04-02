@@ -1,0 +1,27 @@
+class ListNode {
+ int val;
+ ListNode next;
+ ListNode() {}
+ ListNode(int val) { this.val = val; }
+ ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+
+class Solution {
+ public ListNode areConverging(ListNode n1, ListNode n2){
+
+     while (n1 != null) {
+            ListNode l1 = n2;
+            while (l1 != null) {
+                if (n1 == l1) return n1;
+                l1 = l1.next;
+            }
+            n1 = n1.next;
+        }
+        return null;
+    }
+}
+
+o(m+n) time
+
+o(1) space
