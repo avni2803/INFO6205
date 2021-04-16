@@ -1,0 +1,28 @@
+class Solution {
+  public String reverseWords(String s) {
+    int l1 = 0, r1 = s.length() - 1;
+   
+    while (l1 <= r1 && s.charAt(l1) == ' ') ++l1;
+
+    
+    while (l1<= r1 && s.charAt(r1) == ' ') --r1;
+
+    Deque<String> deq = new ArrayDeque();
+    StringBuilder word = new StringBuilder();
+   
+    while (l1 <= r1) {
+      char c = s.charAt(l1);
+
+      if ((word.length() != 0) && (c == ' ')) {
+        deq.offerFirst(word.toString());
+        word.setLength(0);
+      } else if (c != ' ') {
+        word.append(c);
+      }
+      ++l1;
+    }
+    deq.offerFirst(word.toString());
+
+    return String.join(" ", deq);
+  }
+}
