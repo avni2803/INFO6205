@@ -1,0 +1,58 @@
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+vector<unordered_set<int> > make_graph(int num,
+			vector<pair<int, int> >& pre1)
+{
+	vector<unordered_set<int> > graph(num);
+	for (auto pre : pre1)
+		graph[pre.second].insert(pre.first);
+	return graph;
+}
+
+
+bool dfsCycle(vector<unordered_set<int> >& g1, int node,
+			vector<bool>& path1, vector<bool>& visit)
+{
+	if (visit[node])
+		return false;
+	path1[node] = visit[node] = true;
+	for (int n1 : g1[node])
+		if (path1[n1] || dfsCycle(g1, n1, path1, visit))
+			return true;
+	return path1[node] = false;
+}
+
+
+bool CheckFinish(int n1, vector<pair<int, int> >& p1)
+{
+	vector<unordered_set<int> > g1 = make_graph(n1, p1);
+	vector<bool> path1(n1, false), visit(n1, false);
+	for (int i = 0; i < n1; i++)
+		if (!visit[i] && dfsCycle(g1, i, path1, visit))
+			return false;
+	return true;
+}
+
+int main()
+{
+	int tasks = 4;
+
+	vector<pair<int, int> > p1;
+
+
+	p1.push_back(make_pair(1, 0));
+	p1.push_back(make_pair(2, 1));
+	p1.push_back(make_pair(3, 2));
+	if (CheckFinish(tasks, p1)) {
+		cout << "Possible to finish the course schedule";
+	}
+	else {
+		cout << "Impossible to finish the course schedule ";
+	}
+
+	return 0;
+}
